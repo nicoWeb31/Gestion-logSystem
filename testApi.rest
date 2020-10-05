@@ -1,7 +1,20 @@
 GET    http://localhost:3001/logs
 
 
-#####
-
+###
 
 GET http://localhost:3001/techs
+
+
+###
+
+POST http://localhost:3001/techs
+content-type: application/json
+
+{
+    "firstName": "sample",
+    "lastName": "mich"
+}
+
+###
+DELETE http://localhost:3001/techs/4
