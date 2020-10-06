@@ -30,8 +30,8 @@ const Logs = () => {
     }
 
     return (
-        <div>
-            <ul className="collection-with-haeader">
+
+            <ul className="collection-with-header">
 
                 <li className="collection-header">
                     <h4 className="center">System Logs</h4>
@@ -47,7 +47,7 @@ const Logs = () => {
                     })
                 )}
             </ul>
-        </div>
+
     );
 }
 
