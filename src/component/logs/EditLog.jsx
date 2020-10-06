@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js'
 
-import './modalStyle.css'
+import '../modalStyle.css'
 
 export const EditLog = () => {
 

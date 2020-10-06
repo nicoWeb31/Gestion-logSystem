@@ -8,6 +8,8 @@ import Logs from './component/logs/Logs';
 import AddBtn from './component/layout/addBtn/AddBtn';
 import AddLog from './component/logs/AddLog';
 import EditLog from './component/logs/EditLog';
+import AddTechModal from './component/tech/AddTechModal';
+import TechListModal from './component/tech/TechListModal'
 
 
 const App = () => {
@@ -26,6 +28,8 @@ const App = () => {
         <Logs />
         <AddLog/>
         <EditLog/>
+        <AddTechModal/>
+        <TechListModal/>
       </div>
 
 
