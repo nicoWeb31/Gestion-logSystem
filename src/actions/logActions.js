@@ -1,4 +1,4 @@
-import { GET_LOGS, SET_LOADING, LOGS_ERROR,ADD_LOG, DELETE_LOG } from './types';
+import { GET_LOGS, SET_LOADING, LOGS_ERROR, ADD_LOG, DELETE_LOG, SET_CURRENT, CLEAR_CURRENT, UPDATE_LOG, SEARCH_LOG } from './types';
 
 
 //use redux thunk for async return a func
@@ -38,14 +38,36 @@ export const getLogs = () => async dispatch => {
     }
 }
 
+////////------------------////////////////////////
+export const searchLogs = (txt) => async dispatch => {
+
+    try {
+        setLoading();
+
+        const response = await fetch(`http://localhost:3001/logs?q=${txt}`);
+        const data = await response.json()
+        dispatch({
+            type: SEARCH_LOG,
+            payload: data
+        })
+
+    } catch (err) {
+        dispatch({
+            type: LOGS_ERROR,
+            payload: err.response.data
+        })
+
+    }
+}
+
 
 export const deleteLogs = (id) => async dispatch => {
 
     try {
         setLoading();
 
-        await fetch(`http://localhost:3001/logs/${id}`,{
-            method :'DELETE'
+        await fetch(`http://localhost:3001/logs/${id}`, {
+            method: 'DELETE'
         });
 
         dispatch({
@@ -64,30 +86,78 @@ export const deleteLogs = (id) => async dispatch => {
 }
 
 
-export const addLog = (log) => async dispatch =>{
-    try{
+export const addLog = (log) => async dispatch => {
+    try {
         setLoading();
 
-        const response = await fetch('http://localhost:3001/logs',{
-            method:'POST',
-            body:JSON.stringify(log),
-            headers:{
-                'Content-type':'application/json'
+        const response = await fetch('http://localhost:3001/logs', {
+            method: 'POST',
+            body: JSON.stringify(log),
+            headers: {
+                'Content-type': 'application/json'
             }
         })
 
         const data = await response.json();
-        dispatch({type:ADD_LOG,
-                payload:data
+        dispatch({
+            type: ADD_LOG,
+            payload: data
         })
 
-    }catch(err){
+    } catch (err) {
         dispatch({
             type: LOGS_ERROR,
             payload: err.response.data
         })
     }
 }
+
+
+export const updateLogs = (id,log) => async dispatch => {
+
+    try {
+        setLoading();
+
+        const response = await fetch(`http://localhost:3001/logs/${id}`,{
+            method:'PUT',
+            body: JSON.stringify(log),
+            headers: {
+                'Content-Type':'application/json'
+            }
+        });
+
+        const data = await response.json();
+
+        dispatch({
+            type: UPDATE_LOG,
+            payload: data
+        })
+
+    } catch (err) {
+        dispatch({
+            type: LOGS_ERROR,
+            payload: err.response.data
+        })
+
+    }
+}
+
+
+export const setCurrentLog = log => {
+    return {
+        type: SET_CURRENT,
+        payload: log
+    }
+
+}
+
+export const ClearCurrentLog = () => {
+    return {
+        type: CLEAR_CURRENT
+    }
+
+}
+
 
 
 export const setLoading = () => {

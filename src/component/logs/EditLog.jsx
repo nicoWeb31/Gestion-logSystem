@@ -1,28 +1,48 @@
-import React, { useState } from 'react';
-import M from 'materialize-css/dist/js/materialize.min.js'
+import React, { useState, useEffect } from 'react';
+import M from 'materialize-css/dist/js/materialize.min.js';
+import { connect } from 'react-redux';
+import {ClearCurrentLog, updateLogs } from '../../actions/logActions';
+
 
 import '../modalStyle.css'
 
-export const EditLog = () => {
+export const EditLog = ({ClearCurrentLog,updateLogs,curentLog}) => {
 
     const [message, setMessage] = useState('');
     const [attention, setAtention] = useState(false);
-    const [tech, setTech] = useState('')
+    const [tech, setTech] = useState('');
 
+
+    useEffect(()=>{
+        if(curentLog){
+            setMessage(curentLog.message)
+            setAtention(curentLog.attention)
+            setTech(curentLog.tech)
+
+        }
+    },[curentLog])
 
     const onSubmitForm = (e) => {
-        if(message === '' || tech === '' ){
+        if(curentLog.message === '' || curentLog.curentLogtech === '' ){
             M.toast({html: 'please enter correct value'})
         }else{
 
             e.preventDefault();
-            console.log(message, tech, attention)
+            
+            const updatelog = {
+                id:curentLog.id,
+                message : message,
+                tech: tech,
+                attention: attention,
+                date: new Date()
+            }
+            updateLogs(curentLog.id,updatelog)
+            M.toast({html:`log  ${curentLog.id} updtate with success by ${tech} `})
 
-            //clear field
-    
-            setMessage('');
-            setTech('');
-            setAtention(false);
+
+            ClearCurrentLog()
+
+
         }
 
     }
@@ -72,5 +92,7 @@ export const EditLog = () => {
     )
 }
 
-
-export default EditLog;
+const mapStateToProps = state =>{
+    return {curentLog: state.log.current}
+}
+export default connect(mapStateToProps,{ClearCurrentLog,updateLogs})(EditLog);
