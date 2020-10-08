@@ -31,3 +31,31 @@ export const setLoading = () => {
         type: SET_LOADING
     }
 }
+
+//----------------addtech-----------------
+export const addTech = (tech) => async dispatch => {
+
+    try {
+        setLoading();
+
+        const response = await fetch('http://localhost:3001/techs',{
+            method: 'POST',
+            body: JSON.stringify(tech),
+            headers:{
+                'Content-type' : 'application/json'
+            }
+        });
+        const data = await response.json()
+        dispatch({
+            type: ADD_TECH,
+            payload: data
+        })
+
+    } catch (err) {
+        dispatch({
+            type: TECHS_ERROR,
+            payload: err.response.statusText
+        })
+
+    }
+}

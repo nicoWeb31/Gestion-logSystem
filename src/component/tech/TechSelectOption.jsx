@@ -14,7 +14,7 @@ const TechSelectOption = ({ getTechs, tech: { techs, loading } }) => {
     }, [])
 
     return (
-        <>
+        <div>
             {!loading && techs && techs.map(tech => {
                 return (
                     <option key={tech.id} value={`${tech.firstName} ${tech.lastName}`}>
@@ -23,7 +23,7 @@ const TechSelectOption = ({ getTechs, tech: { techs, loading } }) => {
 
                 )
             })}
-        </>
+        </div>
     );
 }
 
