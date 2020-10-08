@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { connect } from 'react-redux';
-import {ClearCurrentLog, updateLogs } from '../../actions/logActions';
+import { updateLogs } from '../../actions/logActions';
+import TechSelectOption from '../tech/TechSelectOption'
 
 
 import '../modalStyle.css'
@@ -40,8 +41,6 @@ export const EditLog = ({ClearCurrentLog,updateLogs,curentLog}) => {
             M.toast({html:`log  ${curentLog.id} updtate with success by ${tech} `})
 
 
-            ClearCurrentLog()
-
 
         }
 
@@ -64,10 +63,7 @@ export const EditLog = ({ClearCurrentLog,updateLogs,curentLog}) => {
                         <select name="tech" value={tech} className='browser-default' onChange={e => setTech(e.target.value)}>
                             <option value="" disabled >Select a tech</option>
 
-                            <option value="jhon">jhon</option>
-                            <option value="toto">toto</option>
-                            <option value="tata">tata</option>
-
+                            <TechSelectOption/>
 
                         </select>
                     </div>
@@ -95,4 +91,4 @@ export const EditLog = ({ClearCurrentLog,updateLogs,curentLog}) => {
 const mapStateToProps = state =>{
     return {curentLog: state.log.current}
 }
-export default connect(mapStateToProps,{ClearCurrentLog,updateLogs})(EditLog);
+export default connect(mapStateToProps,{updateLogs})(EditLog);

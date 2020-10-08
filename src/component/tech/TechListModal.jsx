@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getTechs } from '../../actions/techAction';
 import TechItem from './TechItem';
-import PropTypes from 'prop-types';
 
 
 
@@ -14,8 +14,7 @@ const TechListModal = ({getTechs,tech:{ techs, loading}}) => {
         getTechs();
         //eslint-disable-next-line
         
-
-    }, [])
+    },[])
 
 
 
@@ -41,7 +40,7 @@ const TechListModal = ({getTechs,tech:{ techs, loading}}) => {
 
 
 TechListModal.propTypes={
-    techs: PropTypes.object.isRequired,
+    techs: PropTypes.object,
     getTechs: PropTypes.func.isRequired
 }
 

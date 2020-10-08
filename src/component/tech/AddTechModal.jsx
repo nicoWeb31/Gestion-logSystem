@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import M from 'materialize-css/dist/js/materialize.min.js'
+import M from 'materialize-css/dist/js/materialize.min.js';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { addTech } from '../../actions/techAction'
 
 import '../modalStyle.css'
 
-export const AddTechModal = () => {
+export const AddTechModal = ({addTech}) => {
 
     const [firstName, setfirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -17,6 +20,7 @@ export const AddTechModal = () => {
 
             e.preventDefault();
             console.log(firstName, lastName)
+            addTech({firstName,lastName})
 
             //clear field
 
@@ -53,4 +57,8 @@ export const AddTechModal = () => {
 }
 
 
-export default AddTechModal;
+AddTechModal.prototype ={
+    addTech: PropTypes.func.isRequired,
+}
+
+export default connect(null, {addTech})(AddTechModal);

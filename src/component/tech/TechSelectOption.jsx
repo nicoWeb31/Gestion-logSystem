@@ -1,41 +1,45 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getTechs } from '../../actions/techAction';
-import PropTypes from 'prop-types'
 
 
 
-const TechSelectOption = ({ getTechs, tech: { techs, loading } }) => {
+
+const TechSelectOption = ({ getTechs,techs}) => {
 
     useEffect(() => {
-
+        console.log(techs)
         getTechs();
         //eslint-disable-next-line
     }, [])
 
+
+    if(!techs){
+        return (
+            <option>......</option>
+        )
+    }
+
     return (
-        <div>
-            {!loading && techs && techs.map(tech => {
-                return (
+        
+            techs && techs.map(tech => (
+                
                     <option key={tech.id} value={`${tech.firstName} ${tech.lastName}`}>
                         {tech.firstName} {tech.lastName}
                     </option>
 
-                )
-            })}
-        </div>
+                
+            ))
+        
     );
 }
 
-TechSelectOption.prototype = {
-    getTechs: PropTypes.object.isRequired,
-    // tech: PropTypes.object.isRequired
-}
+
 
 
 const mapStateToProps = state => {
     return {
-        tech: state.tech
+        techs: state.tech.techs
     }
 }
 export default connect(mapStateToProps, { getTechs })(TechSelectOption);

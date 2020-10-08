@@ -14,7 +14,8 @@ export default (state = initialState, action)=>{
         case GET_TECHS: 
         return{
             ...state,
-            techs: action.payload
+            techs: action.payload,
+            loading: false
         }
 
         case SET_LOADING:
@@ -29,6 +30,18 @@ export default (state = initialState, action)=>{
                 ...state,
                 err: action.payload
             }
+        
+        case  ADD_TECH : 
+        return {
+            ...state,
+            techs: [...state.techs, action.payload],           ////current state plus new tech
+            loading: false
+        } 
+        // case DELETE_TECH :
+        //     return {
+        //         ...state,
+        //         techs : state.techs.filter(tech => tech.id !== action.payload)
+        //     }
 
         default:
             return{
